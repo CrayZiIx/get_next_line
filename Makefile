@@ -34,7 +34,7 @@ clean:
 
 fclean:	clean
 	rm -f ${NAME}
-	rm -f prog
+	rm -f a.out
 
 re: fclean all
 

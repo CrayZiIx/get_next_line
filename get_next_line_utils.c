@@ -20,6 +20,8 @@ char    *fct_strjoin(char *buf, char *stash)
 
 	i = 0;
 	y = fct_strlen(stash);
+	//printf("stash>>[%s]\nlen stash>>[%d]\n",stash, fct_strlen(stash));
+	//printf("buf>>[%s]\nlen buf>>[%d]\n", buf, fct_strlen(buf));
 	len = fct_strlen(buf) + fct_strlen(stash);
 	while(i <= len)
 	{
@@ -52,7 +54,10 @@ int	fct_strlen(char *buf)
 	if(!buf)
 		return (i);
 	while (buf[i] != '\0')
+	{
+		//printf("-->[%d]\n", i);
 		i++;
+	}
 	return (i);
 }
 
@@ -73,7 +78,7 @@ char	*fct_stash_clean(char	*stash)
 	char	*buf;
 	int	i;
 	int	y;
-	
+
 	y = 0;
 	i = fct_strlen_line(stash);
 	buf = malloc(sizeof(char) * (-i + fct_strlen(stash)));
