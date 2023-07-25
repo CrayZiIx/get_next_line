@@ -29,10 +29,10 @@ int	gnl_check(char *stash)
 }
 char    *get_next_line(int fd)
 {
-    static char	*stash;
+    static char	*stash; // Dynamic Array 
     char	*buf;
     char	*bufr;
-  
+
 	buf = malloc(sizeof(char) * BUFFER_SIZE);
 	stash = malloc(sizeof(char) * (BUFFER_SIZE * 1000));
 	if (fd <= 0)

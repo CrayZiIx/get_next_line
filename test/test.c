@@ -8,10 +8,14 @@ int main(void)
     int fd;
 
     fd = open("blabla.txt", O_RDONLY);
-    while((line = get_next_line(fd)))
+    printf("%d\n", fd);
+    line = get_next_line(fd);
+
+    while((line != NULL))
     {    
-        printf("-----------\n");
+        //printf("-----------\n");
         printf("-<try - %s>-\n", line);
+        line = get_next_line(fd);
     }
     return (0);
 }

@@ -26,6 +26,7 @@ char    *get_next_line(int fd);
 char    *fct_addbuftobufr(char *buf, char *bufr); // l(SRC) -> r(DEST)
 char    *fct_addresttostash(char *stash, char *bufr);
 char *fct_addresttobufr(char *stash, char *bufr);
+char    *fct_clearrest(char *bufr);
 int fct_strlen(char *buf);
 int fct_checkifline(char *bufr);
 int fct_checkifrest(char *bufr);

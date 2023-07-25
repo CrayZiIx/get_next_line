@@ -17,7 +17,9 @@ int fct_strlen(char *buf)
     int i;
     
     i = 0;
-    while (buf[i] != '\0'){}
+    if (buf == NULL)
+        return (0);
+    while (buf[i++] != '\0'){}
     return(i - 1);
 }
 
@@ -27,13 +29,13 @@ char    *fct_addbuftobufr(char *buf, char *bufr)
     int i;
 
     i = 0;
-    nbufr = (char *)malloc(sizeof(char) * (fct_strlen(buf) + fct_strlen(bufr) + 1));
+    nbufr = malloc(sizeof(char) * (BUFFER_SIZE + fct_strlen(bufr) + 1));
     while (bufr[i++] != '\0')
         nbufr[i - 1] = bufr[i - 1];
     i = 0;
     while (buf[i++] != '\0')
         nbufr[i + fct_strlen(bufr) - 1] = buf[i - 1];
-    nbufr[i - 1] = '\0';
+    nbufr[i + fct_strlen(bufr) - 1] = '\0';
     free(bufr);
     return(nbufr);
 }
@@ -64,8 +66,24 @@ char *fct_addresttobufr(char *stash, char *bufr)
     while (stash[i++] != '\0')
         nbufr[i- 1] = stash[i - 1];
     nbufr[i - 1] = '\0';
+    // printf("\nNBUFR |%s|", nbufr);
     free(bufr);
     return(nbufr);
+}
+
+char    *fct_clearrest(char *bufr)
+{
+    int i;
+
+    i = 0;
+    if (fct_checkifrest(bufr) == 0)
+        return(bufr);
+    else
+    {
+        while(bufr[i++] != '\n'){}
+        bufr[i - 1] = '\0';
+        return(bufr);
+    }
 }
 int fct_checkifline(char *bufr)
 {
@@ -73,8 +91,10 @@ int fct_checkifline(char *bufr)
 
     i = 0;
     while(bufr[i++] != '\0')
+    {
         if(bufr[i] == '\n')
             return (1);
+    }
     return (0);
 }
 
@@ -96,9 +116,9 @@ int fct_checkifeof(char *bufr)
     int i;
 
     i = 0;
-    while(i++ < fct_strlen(bufr))
+    while(i++ <= fct_strlen(bufr))
     {
-        if (bufr[i - 1] == '\0')
+        if (bufr[i] == '\0')
             return (1);
     }
     return (0);
