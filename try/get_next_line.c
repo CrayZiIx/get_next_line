@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:30 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/07 15:58:11 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:35:32 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char    *get_next_line(int fd)
                 if (buf_size < 0)
                 {
                 	free(buf);
+                        free(stock);
+                        stock = NULL;
                 	return (NULL);
                 }
                 if (buf_size == 0)
@@ -110,7 +112,6 @@ char *get_stock_after_newline(char *stock)
                 ret[i] = stock[i];
                 i++;
         }
-        free(stock);
         ret[i] = '\0';
         return (ret);
 }
