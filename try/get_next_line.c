@@ -28,11 +28,15 @@ char    *get_next_line(int fd)
         {
                 buf_size = read(fd, buf, BUFFER_SIZE);
                 if (buf_size < 0)
-                        return (NULL);
+                {
+                	free(buf);
+                	return (NULL);
+                }
                 if (buf_size == 0)
                 {
                         tmp = stock;
                         stock = NULL;
+                        free(buf);
                         return (tmp);
                 }
                 buf[buf_size] = '\0';
@@ -57,30 +61,20 @@ char    *concatenate_bufer(char *stock, char *buf)
         i = 0;
         if (stock != NULL)
         {
-                // printf("1");
                 while (stock[i])
                 {
                         ret[i] = stock[i];
                         i++;
-                        // printf("[1]|%c|%c\n", ret[i], buf[i]);
-                        // printf("[1]-%s|%s-\n", ret , buf);
-                        // printf("-----|%zd|-----\n", ft_strlen(ret));
                 }
         }
         y = 0;
-        // printf("%zd", ft_strlen(stock));
         while (buf[y])
         {
-                // printf("2");
                 ret[i + y] = buf[y];
                 y++;
-                // printf("[2]|%c|%c\n", ret[y], buf[i]);
-                // printf("[2]-%s|%s-\n", ret , buf);
         }
         ret[i + y] = '\0';
         free(stock);
-        // printf("ret = %s\n", ret);
-        // usleep(1000000);
         return (ret);
 }
 
@@ -116,6 +110,7 @@ char *get_stock_after_newline(char *stock)
                 ret[i] = stock[i];
                 i++;
         }
+        free(stock);
         ret[i] = '\0';
         return (ret);
 }
