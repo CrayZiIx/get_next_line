@@ -9,6 +9,8 @@ int main(void)
 
     fd = open("blabla.txt", O_RDONLY);
     while ((line = get_next_line(fd)))
+    {
         printf("%s", line);
+    }
     return (0);
 }

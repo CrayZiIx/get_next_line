@@ -29,5 +29,5 @@ char	*get_stock_after_newline(char *stock);
 int		get_newline_index(char *stock);
 /**utils functions**/
 ssize_t	ft_strlen(char *str);
-char	*read_until_nline(char *buf, char *stock, int newline_index, int fd, char *tmp);
+char	*read_until_nline(char *buf, char *stock, int *newline_index, int fd, char *tmp);
 #endif

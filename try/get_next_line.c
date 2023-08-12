@@ -55,7 +55,6 @@ char	*get_next_line(int fd)
 	static char	*stock;
 	char		*buf;
 	char		*tmp;
-	char		*nline;
 	int			newline_index;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
@@ -63,13 +62,13 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	newline_index = -1;
 	tmp = NULL;
-	nline = read_until_nline(buf, stock, newline_index, fd, tmp);
-	if (nline == NULL)
+	stock = read_until_nline(buf, stock, &newline_index, fd, tmp);
+	if ( stock == NULL)
 		return (NULL);
 	tmp = stock;
-	free(buf);
 	stock = get_stock_after_newline(stock + newline_index + 1);
 	tmp[newline_index + 1] = '\0';
+	//printf("%s\n", tmp);
 	return (tmp);
 }
 
