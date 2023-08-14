@@ -1,5 +1,0 @@
-buffer de taille BUFFER_SIZE + 1
-
-stash de taille longueur 
-
-buffer de return qui est de taille BUFFER_SIZE * x + 1
