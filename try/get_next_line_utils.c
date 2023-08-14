@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:25 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/12 12:04:55 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/08/14 13:32:34 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,21 @@ char	*read_until_nline(char *buf, char *stock, int *newline_index, int fd, char 
 	while ((*newline_index = get_newline_index(stock)) == -1)
 	{
 		buf_size = read(fd, buf, BUFFER_SIZE);
-		if (buf_size == 0)
-		{
-			printf("%s\n", stock);
-			return(tmp);
-		}
-
-		if (buf_size < 0)
-		{
-			free(buf);
-			free(stock);
-			stock = NULL;
-			return (NULL);
-		}
+		printf("%ld", buf_size);
 		if (buf_size == 0)
 		{
 			tmp = stock;
 			stock = NULL;
+			//printf("%s\n", tmp);
 			return (tmp);
+		}
+		if (buf_size < 0)
+		{
+			printf("test");
+			free(buf);
+			free(stock);
+			stock = NULL;
+			return (NULL);
 		}
 		buf[buf_size] = '\0';
 		stock = concatenate_bufer(stock, buf);

@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:30 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/12 12:09:54 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/08/14 13:13:16 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ char	*get_next_line(int fd)
 	newline_index = -1;
 	tmp = NULL;
 	stock = read_until_nline(buf, stock, &newline_index, fd, tmp);
+	//printf("%s\n", tmp);
 	if ( stock == NULL)
 		return (NULL);
 	tmp = stock;
 	stock = get_stock_after_newline(stock + newline_index + 1);
 	tmp[newline_index + 1] = '\0';
 	//printf("%s\n", tmp);
+	usleep(100000);
+	// printf("|%s|\n", tmp);
 	return (tmp);
 }
 
