@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:30 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/14 14:23:28 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:36:18 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,89 +15,30 @@
 char	*get_next_line(int fd)
 {
 	static char	*stock;
-	char		*buf;
-	char		*tmp;
-	int			newline_index;
+	t_data		datas;
+	int			status;
 
-	tmp = NULL;
-	if (fd < 0 || BUFFER_SIZE < 0)
+	datas.fd = fd;
+	if (datas.fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	newline_index = get_newline_index(stock);
-	while (newline_index == -1)
-	{
-		newline_index = test(fd, buf, stock);
-		if (newline_index == -2)
-			return (NULL);
-		if (newline_index == -3)
-		{
-			tmp = stock;
-			stock = NULL;
-			return (tmp);
-		}
-	}
-	tmp = stock;
-	free(buf);
-	stock = get_stock_after_newline(stock + newline_index + 1);
-	tmp[newline_index + 1] = '\0';
-	return (tmp);
+	datas.buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	status = read_until_nl(&datas, &stock);
+	if (status == 0)
+		return (NULL);
+	if (status == 1)
+		return (datas.tmp);
+	datas.tmp = stock;
+	free(datas.buf);
+	stock = get_stock_after_newline(stock + datas.newline_index + 1);
+	datas.tmp[datas.newline_index + 1] = '\0';
+	return (datas.tmp);
 }
 
-int test(int fd, char *buf, char *stock)
+char	*concatenate_bufer(char *stock, char *buf)
 {
-	ssize_t buf_size;
-
-	buf_size = read(fd, buf, BUFFER_SIZE);
-	if (buf_size < 0)
-	{
-		free(buf);
-		free(stock);
-		stock = NULL;
-		// return (NULL);
-		return (-2);
-	}
-	if (buf_size == 0)
-	{
-		stock = NULL;
-		free(buf);
-		// return (tmp);
-		return (-3);
-	}
-	buf[buf_size] = '\0';
-	stock = concatenate_bufer(stock, buf);
-	return (get_newline_index(stock));
-}
-// char	*get_next_line(int fd)
-// {
-// 	static char	*stock;
-// 	char		*buf;
-// 	char		*tmp;
-// 	int			newline_index;
-
-// 	if (fd < 0 || BUFFER_SIZE < 0)
-// 		return (NULL);
-// 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-// 	newline_index = -1;
-// 	tmp = NULL;
-// 	stock = read_until_nline(buf, stock, &newline_index, fd, tmp);
-// 	//printf("%s\n", tmp);
-// 	if ( stock == NULL)
-// 		return (NULL);
-// 	tmp = stock;
-// 	stock = get_stock_after_newline(stock + newline_index + 1);
-// 	tmp[newline_index + 1] = '\0';
-// 	//printf("%s\n", tmp);
-// 	usleep(100000);
-// 	// printf("|%s|\n", tmp);
-// 	return (tmp);
-// }
-
-char    *concatenate_bufer(char *stock, char *buf)
-{
-	char    *ret;
-	int i;
-	int y;
-
+	char	*ret;
+	int		i;
+	int		y;
 
 	ret = malloc(sizeof(char) * (ft_strlen(stock) + ft_strlen(buf) + 1));
 	i = 0;
@@ -120,9 +61,9 @@ char    *concatenate_bufer(char *stock, char *buf)
 	return (ret);
 }
 
-int     get_newline_index(char *stock)
+int	get_newline_index(char *stock)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (stock == NULL)
@@ -136,11 +77,11 @@ int     get_newline_index(char *stock)
 	return (-1);
 }
 
-char *get_stock_after_newline(char *stock)
+char	*get_stock_after_newline(char *stock)
 {
-	char *ret;
-	size_t  len;
-	int i;
+	char	*ret;
+	size_t	len;
+	int		i;
 
 	i = 0;
 	len = ft_strlen(stock);

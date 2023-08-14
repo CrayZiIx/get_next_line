@@ -6,7 +6,7 @@
 #    By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 10:11:20 by jolecomt          #+#    #+#              #
-#    Updated: 2023/07/07 11:37:28 by jolecomt         ###   ########.fr        #
+#    Updated: 2023/08/14 18:41:38 by jolecomt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ${NAME}: ${OBJS}
 	ranlib ${NAME}
 
 test: ${NAME}
-	${CC} ${FLAGS} main.c ${NAME} -o prog
+	${CC} ${FLAGS} test.c ${NAME} -o prog
 
 clean:
 	rm -f ${OBJS}

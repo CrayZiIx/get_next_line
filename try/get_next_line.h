@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:32 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/14 14:23:47 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:41:02 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+/**structure**/
+typedef struct s_data
+{
+	int		fd;
+	int		newline_index;
+	char	*buf;
+	char	*tmp;
+	ssize_t	buf_size;
+}	t_data;
+
 /**main functions**/
 char	*get_next_line(int fd);
 char	*concatenate_bufer(char *stock, char *buf);
@@ -29,6 +39,5 @@ char	*get_stock_after_newline(char *stock);
 int		get_newline_index(char *stock);
 /**utils functions**/
 ssize_t	ft_strlen(char *str);
-char	*read_until_nline(char *buf, char *stock, int *newline_index, int fd, char *tmp);
-int test(int fd, char *buf, char *stock);
+int		read_until_nl(t_data *datas, char **stock);
 #endif
